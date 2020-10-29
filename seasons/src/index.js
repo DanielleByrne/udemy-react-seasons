@@ -8,8 +8,8 @@ class App extends React.Component {
     super(props);
     this.state = { lat: null, errorMessage: "" };
   }
- 
-  state = { lat:null, errorMessage: ""}
+
+  state = { lat: null, errorMessage: "" };
   componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -21,18 +21,21 @@ class App extends React.Component {
     );
   }
 
-  render() {
+  renderContent() {
     //if we have an error message and no lat
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
     //if we don't have an error message but we do have the lat
     if (!this.state.errorMessage && this.state.lat) {
-      return <SeasonDisplay lat = {this.state.lat}/>
+      return <SeasonDisplay lat={this.state.lat} />;
     }
+    return <Spinner message="Please accept location request :)" />;
+  }
 
-    return <Spinner/>;
-
+  
+  render() {
+    return <div>{this.renderContent()}</div>;
   }
 }
 
